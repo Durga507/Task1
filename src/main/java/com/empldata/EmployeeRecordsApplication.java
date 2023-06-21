@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,6 +33,10 @@ public class EmployeeRecordsApplication {
         Set<Employee> dedupedRecords = new HashSet<>(employeeRecords);
         return new ArrayList<>(dedupedRecords);
     }
+    public List<Employee> dedupEmployeeRecords(List<Employee> employeeList) {
+        Set<Employee> uniqueEmployees = new HashSet<>(employeeList);
+        return new ArrayList<>(uniqueEmployees);
+    }
 
 //    public List<Employee> sortEmployeesByNameAndDOJ() {
 //        List<Employee> sortedRecords = new ArrayList<>(employeeRecords);
@@ -53,6 +58,10 @@ public class EmployeeRecordsApplication {
         Comparator<Employee> byDOJ = Comparator.comparing(Employee::getDoj, Comparator.nullsLast(Comparator.naturalOrder()));
         sortedRecords.sort(byName.thenComparing(byDOJ));
         return sortedRecords;
+    }
+    public void sortEmployeeRecords(List<Employee> employeeList) {
+        Collections.sort(employeeList, Comparator.comparing(Employee::getEmpName)
+                                                .thenComparing(Employee::getDoj));
     }
 
 
