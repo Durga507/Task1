@@ -1,0 +1,129 @@
+package com.employee;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+//import org.junit.jupiter.api.extension.ExtendWith;
+//import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+
+
+
+
+
+
+@ExtendWith(MockitoExtension.class)
+public class EmployeeRecordsTest {
+    @Mock
+    private EmployeeRecords mockEmployeeRecords;
+    
+
+    @Test
+    public void testDedupRecords() {
+        // Create a mock list of employees
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "John",LocalDate.of(1996,6,11),LocalDate.of(2020,11,12), "Consultant", "HR"));
+        employees.add(new Employee(2, "Alice",LocalDate.of(1996,6,11),LocalDate.of(2020,11,12), "Sr Consultant", "Development"));
+        employees.add(new Employee(3, "Bob",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "Development"));
+
+        // Set the mock list in the mockEmployeeRecords object
+        Mockito.when(mockEmployeeRecords.getEmployees()).thenReturn(employees);
+
+        // Call the deduplicateRecords() method
+        mockEmployeeRecords.deduplicateRecords();
+
+        // Perform the test by verifying the expected behavior
+        Mockito.verify(mockEmployeeRecords, Mockito.times(1)).deduplicateRecords();
+    }
+
+    @Test
+    public void testSortByName() {
+        // Create a mock list of employees
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "John",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "HR"));
+        employees.add(new Employee(2, "Alice",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Sr Consultant", "Development"));
+        employees.add(new Employee(3, "Bob",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "Development"));
+
+        // Set the mock list in the mockEmployeeRecords object
+        Mockito.when(mockEmployeeRecords.getEmployees()).thenReturn(employees);
+
+        // Call the sortByName() method
+        mockEmployeeRecords.sortByName();
+
+        // Perform the test by verifying the expected behavior
+        Mockito.verify(mockEmployeeRecords, Mockito.times(1)).sortByName();
+    }
+
+    @Test
+    public void testSortByDOJ() {
+        // Create a mock list of employees
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "John",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "HR"));
+        employees.add(new Employee(2, "Alice",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Sr Consultant", "Development"));
+        employees.add(new Employee(3, "Bob",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "Development"));
+
+        // Set the mock list in the mockEmployeeRecords object
+        Mockito.when(mockEmployeeRecords.getEmployees()).thenReturn(employees);
+
+        // Call the sortByDOJ() method
+        mockEmployeeRecords.sortByDOJ();
+
+        // Perform the test by verifying the expected behavior
+        Mockito.verify(mockEmployeeRecords, Mockito.times(1)).sortByDOJ();
+    }
+
+    @Test
+    public void testGetDepartmentCounts() {
+        // Create a mock list of employees
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "John",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "HR"));
+        employees.add(new Employee(2, "Alice",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Sr Consultant", "Development"));
+        employees.add(new Employee(3, "Bob",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "Development"));
+
+        // Set the mock list in the mockEmployeeRecords object
+        Mockito.when(mockEmployeeRecords.getEmployees()).thenReturn(employees);
+
+        // Call the getDepartmentCounts() method
+        Map<String, Integer> departmentCounts = new HashMap<>();
+        departmentCounts.put("HR", 1);
+        departmentCounts.put("Development", 2);
+        Mockito.when(mockEmployeeRecords.getDepartmentCounts()).thenReturn(departmentCounts);
+
+        // Perform the test by verifying the expected behavior
+        Mockito.verify(mockEmployeeRecords, Mockito.times(1)).getDepartmentCounts();
+    }
+
+    @Test
+    public void testSearchEmployees() {
+        // Create a mock list of employees
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "John",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "HR"));
+        employees.add(new Employee(2, "Alice",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Sr Consultant", "Development"));
+        employees.add(new Employee(3, "Bob",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12), "Consultant", "Development"));
+
+        // Set the mock list in the mockEmployeeRecords object
+        Mockito.when(mockEmployeeRecords.getEmployees()).thenReturn(employees);
+
+        // Define the search parameters
+        String name = "John";
+        String designation = "Consultant";
+        String department = "HR";
+
+        // Call the searchEmployees() method
+        List<Employee> searchResults = new ArrayList<>();
+        searchResults.add(new Employee(1, "John",LocalDate.of(1996,6,11), LocalDate.of(2020,11,12),"Consultant", "HR"));
+        Mockito.when(mockEmployeeRecords.searchEmployees(name, designation, department)).thenReturn(searchResults);
+
+        // Perform the test by verifying the expected behavior
+        Mockito.verify(mockEmployeeRecords, Mockito.times(1)).searchEmployees(name, designation, department);
+    }
+}
+
